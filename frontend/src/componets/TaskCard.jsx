@@ -44,7 +44,7 @@ const TaskCard = ({
     try {
       const status = e.target.value;
       const response = await axios.post(
-        "http://localhost:3000/task/updateStatus",
+        "https://task-management-8pd4.onrender.com/task/updateStatus",
         { taskId: _id, status },
         {
           headers: {
@@ -65,7 +65,7 @@ const TaskCard = ({
   const handleTaskDelete = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/task/deleteTask",
+        "https://task-management-8pd4.onrender.com/task/deleteTask",
         { taskId: _id },
         {
           headers: {
@@ -85,12 +85,15 @@ const TaskCard = ({
 
   const FetchAllTasksCount = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/task/count", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        params: {},
-      });
+      const response = await axios.get(
+        "https://task-management-8pd4.onrender.com/task/count",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          params: {},
+        }
+      );
       dispatch(setUserTasksCount(response.data));
     } catch (error) {
       console.error("Error fetching tasks:", error);

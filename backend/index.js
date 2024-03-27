@@ -5,10 +5,12 @@ import path from "path";
 import connection from "./db/connection.js";
 import authRoute from "./routes/auth.route.js";
 import taskRoute from "./routes/task.route.js";
+import job from "./cron.js";
 
 const app = express();
 const __dirname = path.resolve();
 const PORT = 3000;
+job.start();
 
 app.use(express.json());
 app.use(cors());
