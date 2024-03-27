@@ -11,8 +11,10 @@ import { useDispatch, useSelector } from "react-redux";
 import TaskCard from "../componets/TaskCard";
 import { addATask, setUserTasks, setUserTasksCount } from "../redux/task.slice";
 import { logout } from "../redux/auth.slice";
+import { Link } from "react-router-dom";
 
 const Tasks = () => {
+  const user = useSelector((store) => store.auth);
   const access_token = useSelector((store) => store.auth.token);
   const tasks = useSelector((store) => store.task.tasks);
   const dispatch = useDispatch();
@@ -223,6 +225,17 @@ const Tasks = () => {
           >
             High
           </div>
+
+          <Link to="/profile">
+            <div className="bg-sky-400 size-10 rounded-full flex items-center justify-center capitalize text-lg text-slate-800 hover:cursor-pointer">
+              {user.fullname
+                .split(" ")
+                .slice(0, 2)
+                .map((word) => word[0])
+                .join("")
+                .toUpperCase()}
+            </div>
+          </Link>
 
           <div
             onClick={handleLogout}

@@ -63,6 +63,12 @@ export const updateTaskStatus = async (req, res) => {
       return res.status(404).json({ error: "Task not found" });
     }
 
+    if (task.creator != req.userId) {
+      return res
+        .status(500)
+        .json({ error: "You are not authorized to update this task!" });
+    }
+
     task.status = status;
     await task.save();
 
@@ -82,6 +88,12 @@ export const deleteATask = async (req, res) => {
       return res.status(404).json({ error: "Task not found" });
     }
 
+    if (task.creator != req.userId) {
+      return res
+        .status(500)
+        .json({ error: "You are not authorized to delete this task!" });
+    }
+
     return res.status(200).json({ msg: "Task Status Deleted", taskId });
   } catch (err) {
     console.log(err);
@@ -89,45 +101,6 @@ export const deleteATask = async (req, res) => {
   }
 };
 
-// export const getTasksCount = async (req, res) => {
-//   try {
-//     let filter = {};
-//     if (req.query.priority) {
-//       filter.priority = req.query.priority;
-//     }
-
-//     const userTasks = await User.findById(req.userId).populate("tasks");
-
-//     const allTasksCount = userTasks.tasks.length;
-//     const pendingTasksCount = userTasks.tasks.filter(
-//       (task) => task.status === "pending"
-//     ).length;
-//     const inProgressTasksCount = userTasks.tasks.filter(
-//       (task) => task.status === "in progress"
-//     ).length;
-//     const completedTasksCount = userTasks.tasks.filter(
-//       (task) => task.status === "completed"
-//     ).length;
-
-//     let queriedTaskCount = 0;
-//     if (req.query.priority) {
-//       queriedTaskCount = userTasks.tasks.filter(
-//         (task) => task.priority === req.query.priority
-//       ).length;
-//     }
-
-//     return res.status(200).json({
-//       queriedTaskCount,
-//       allTasksCount,
-//       pendingTasksCount,
-//       inProgressTasksCount,
-//       completedTasksCount,
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ error: err.message });
-//   }
-// };
 export const getTasksCount = async (req, res) => {
   try {
     let filter = {};
@@ -185,6 +158,17 @@ export const updateTask = async (req, res) => {
   try {
     const { taskId, title, description, priority } = req.body;
 
+    const taskToUpdate = await Task.findById(taskId);
+    if (!taskToUpdate) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    if (taskToUpdate.creator != req.userId) {
+      return res
+        .status(500)
+        .json({ error: "You are not authorized to delete this task!" });
+    }
+
     const task = await Task.findByIdAndUpdate(
       taskId,
       { title, description, priority },
@@ -194,6 +178,7 @@ export const updateTask = async (req, res) => {
     if (!task) {
       return res.status(404).json({ error: "Task not found" });
     }
+
     await task.save();
 
     return res.status(200).json({ msg: "Task updated successfully", task });

@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { setUserTasks } from "./redux/task.slice";
 import { LandingPage } from "./pages/LandingPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   const access_token = useSelector((store) => store.auth.token);
@@ -58,6 +59,11 @@ function App() {
         />
 
         <Route path="/" element={<LandingPage />} />
+
+        <Route
+          path="/profile"
+          element={auth?.token ? <ProfilePage /> : <Navigate to="/login" />}
+        />
       </Routes>
     </>
   );

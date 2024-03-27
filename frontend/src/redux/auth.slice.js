@@ -27,8 +27,12 @@ const authSlice = createSlice({
       localStorage.removeItem("task-management-fullname");
       localStorage.removeItem("task-management-email");
     },
+    updateFullname: (state, { payload }) => {
+      state.fullname = payload;
+      localStorage.setItem("task-management-fullname", payload);
+    },
   },
 });
 
-export const { authenticate, logout } = authSlice.actions;
+export const { authenticate, logout, updateFullname } = authSlice.actions;
 export default authSlice.reducer;
