@@ -73,12 +73,10 @@ const TaskCard = ({
           },
         }
       );
-      // console.log(response.data.taskId);
-      //   const { status: newStatus, _id: taskId } = response.data.task;
-      //   dispatch(deleteATask({ taskId: response.taskId }));
       const id = await response.data.taskId;
       // dispatch(deleteATask({ taskId: response.data.taskId }));
-      dispatch(deleteATask(id));
+      // dispatch(deleteATask(id));
+      window.location.reload();
       toast.success("Task Deleted updated 👍");
     } catch (err) {
       console.log(err);
@@ -93,9 +91,7 @@ const TaskCard = ({
         },
         params: {},
       });
-      // console.log("gettung respoen", response.data);
       dispatch(setUserTasksCount(response.data));
-      // dispatch(setUserTasks(response.data.tasks));
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
