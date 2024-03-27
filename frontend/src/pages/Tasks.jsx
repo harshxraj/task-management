@@ -268,34 +268,31 @@ const Tasks = () => {
               <h1>No task found!</h1>
             </div>
           )}
-
-          {tasks.length >= 3 && (
-            <div className="flex justify-end gap-3 items-center mt-1">
-              <button
-                disabled={page == 1}
-                onClick={() => setPage((prev) => prev - 1)}
-              >
-                <FaArrowAltCircleLeft
-                  size={35}
-                  className={`${
-                    page == 1 ? "text-gray-400" : "text-gray-800"
-                  } hover:cursor-pointer`}
-                />
-              </button>
-              Page : {page}
-              <button
-                disabled={page === totalPages}
-                onClick={() => setPage((prev) => prev + 1)}
-              >
-                <FaArrowAltCircleRight
-                  size={35}
-                  className={`${
-                    page === totalPages ? "text-gray-400" : "text-gray-800"
-                  } hover:cursor-pointer`}
-                />
-              </button>
-            </div>
-          )}
+          <div className="flex justify-end gap-3 items-center mt-1">
+            <button
+              disabled={page == 1}
+              onClick={() => setPage((prev) => prev - 1)}
+            >
+              <FaArrowAltCircleLeft
+                size={35}
+                className={`${
+                  page == 1 ? "text-gray-400" : "text-gray-800"
+                } hover:cursor-pointer`}
+              />
+            </button>
+            Page : {page}
+            <button
+              disabled={page === totalPages}
+              onClick={() => setPage((prev) => prev + 1)}
+            >
+              <FaArrowAltCircleRight
+                size={35}
+                className={`${
+                  page === totalPages ? "text-gray-400" : "text-gray-800"
+                } hover:cursor-pointer`}
+              />
+            </button>
+          </div>
         </div>
       </div>
     </div>
