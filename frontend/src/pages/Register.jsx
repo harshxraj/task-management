@@ -16,7 +16,10 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/auth/register", user);
+      const res = await axios.post(
+        "https://task-management-8pd4.onrender.com/auth/register",
+        user
+      );
       console.log(res.data);
       dispatch(authenticate(res.data));
     } catch ({ response: { data } }) {

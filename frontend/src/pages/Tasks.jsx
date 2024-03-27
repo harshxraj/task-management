@@ -32,16 +32,19 @@ const Tasks = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/task/get", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        params: {
-          status: statusQuery,
-          priority: priorityQuery,
-          page,
-        },
-      });
+      const response = await axios.get(
+        "https://task-management-8pd4.onrender.com/task/get",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          params: {
+            status: statusQuery,
+            priority: priorityQuery,
+            page,
+          },
+        }
+      );
       dispatch(setUserTasks(response.data.tasks));
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -50,15 +53,18 @@ const Tasks = () => {
 
   const FetchAllTasksCount = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/task/count", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        params: {
-          priority: priorityQuery,
-          status: statusQuery,
-        },
-      });
+      const response = await axios.get(
+        "https://task-management-8pd4.onrender.com/task/count",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          params: {
+            priority: priorityQuery,
+            status: statusQuery,
+          },
+        }
+      );
       // console.log("ers", response.data);
       dispatch(setUserTasksCount(response.data));
       setAllTasksCount(response.data.queriedTaskCount);
@@ -104,7 +110,7 @@ const Tasks = () => {
         return toast.error("Select priority");
       }
       const response = await axios.post(
-        "http://localhost:3000/task/create",
+        "https://task-management-8pd4.onrender.com/task/create",
         data,
         {
           headers: {

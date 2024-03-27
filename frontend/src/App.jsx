@@ -20,14 +20,17 @@ function App() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/task/get", {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-        params: {
-          page: 1,
-        },
-      });
+      const response = await axios.get(
+        "https://task-management-8pd4.onrender.com/task/get",
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+          params: {
+            page: 1,
+          },
+        }
+      );
       dispatch(setUserTasks(response.data.tasks));
     } catch (error) {
       console.error("Error fetching tasks:", error);

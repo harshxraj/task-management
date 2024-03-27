@@ -42,7 +42,7 @@ const EditTaskModal = ({
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/task/update",
+        "https://task-management-8pd4.onrender.com/task/update",
         {
           taskId: _id,
           title: task.title,
