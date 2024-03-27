@@ -12,11 +12,11 @@ This is a web-based task management application built using the MERN stack (Mong
 ![photo](https://github.com/harshxraj/task-management/assets/128404446/02ab5d0f-a93a-4f93-904d-70a8b311405c)
 
 ## Technologies Used
-**Backend**: Node.js, Express.js, MongoDB
-**Frontend**: React.js
-**User Authentication**: JSON Web Tokens (JWT)
-**Styling**: Tailwind CSS
-**Deployment**: Render
+- **Backend**: Node.js, Express.js, MongoDB
+- **Frontend**: React.js
+- **User Authentication**: JSON Web Tokens (JWT)
+- **Styling**: Tailwind CSS
+- **Deployment**: Render
 
 ## Setup Instructions
 
