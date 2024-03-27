@@ -44,7 +44,7 @@ const TaskCard = ({
     try {
       const status = e.target.value;
       const response = await axios.post(
-        "https://task-management-8pd4.onrender.com/task/updateStatus",
+        "http://localhost:3000/task/updateStatus",
         { taskId: _id, status },
         {
           headers: {
@@ -65,7 +65,7 @@ const TaskCard = ({
   const handleTaskDelete = async () => {
     try {
       const response = await axios.post(
-        "https://task-management-8pd4.onrender.com/task/deleteTask",
+        "http://localhost:3000/task/deleteTask",
         { taskId: _id },
         {
           headers: {
@@ -73,12 +73,10 @@ const TaskCard = ({
           },
         }
       );
-      // console.log(response.data.taskId);
-      //   const { status: newStatus, _id: taskId } = response.data.task;
-      //   dispatch(deleteATask({ taskId: response.taskId }));
       const id = await response.data.taskId;
       // dispatch(deleteATask({ taskId: response.data.taskId }));
-      dispatch(deleteATask(id));
+      // dispatch(deleteATask(id));
+      window.location.reload();
       toast.success("Task Deleted updated 👍");
     } catch (err) {
       console.log(err);
@@ -87,18 +85,13 @@ const TaskCard = ({
 
   const FetchAllTasksCount = async () => {
     try {
-      const response = await axios.get(
-        "https://task-management-8pd4.onrender.com/task/count",
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          params: {},
-        }
-      );
-      // console.log("gettung respoen", response.data);
+      const response = await axios.get("http://localhost:3000/task/count", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        params: {},
+      });
       dispatch(setUserTasksCount(response.data));
-      // dispatch(setUserTasks(response.data.tasks));
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }

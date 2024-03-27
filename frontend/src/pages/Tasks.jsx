@@ -32,19 +32,16 @@ const Tasks = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(
-        "https://task-management-8pd4.onrender.com/task/get",
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          params: {
-            status: statusQuery,
-            priority: priorityQuery,
-            page,
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:3000/task/get", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        params: {
+          status: statusQuery,
+          priority: priorityQuery,
+          page,
+        },
+      });
       dispatch(setUserTasks(response.data.tasks));
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -53,18 +50,15 @@ const Tasks = () => {
 
   const FetchAllTasksCount = async () => {
     try {
-      const response = await axios.get(
-        "https://task-management-8pd4.onrender.com/task/count",
-        {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          params: {
-            priority: priorityQuery,
-            status: statusQuery,
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:3000/task/count", {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+        params: {
+          priority: priorityQuery,
+          status: statusQuery,
+        },
+      });
       // console.log("ers", response.data);
       dispatch(setUserTasksCount(response.data));
       setAllTasksCount(response.data.queriedTaskCount);
@@ -110,7 +104,7 @@ const Tasks = () => {
         return toast.error("Select priority");
       }
       const response = await axios.post(
-        "https://task-management-8pd4.onrender.com/task/create",
+        "http://localhost:3000/task/create",
         data,
         {
           headers: {
@@ -250,32 +244,39 @@ const Tasks = () => {
 
         <div className="w-[500px] mt-4 flex flex-col gap-2 p-4 rounded-lg">
           {tasks && tasks.map((task) => <TaskCard {...task} key={task._id} />)}
+          {tasks.length === 0 && (
+            <div className="bg-gray-800 text-white h-10 flex justify-center rounded-full items-center">
+              <h1>No task found!</h1>
+            </div>
+          )}
 
-          <div className="flex justify-end gap-3 items-center mt-1">
-            <button
-              disabled={page == 1}
-              onClick={() => setPage((prev) => prev - 1)}
-            >
-              <FaArrowAltCircleLeft
-                size={35}
-                className={`${
-                  page == 1 ? "text-gray-400" : "text-gray-800"
-                } hover:cursor-pointer`}
-              />
-            </button>
-            Page : {page}
-            <button
-              disabled={page === totalPages}
-              onClick={() => setPage((prev) => prev + 1)}
-            >
-              <FaArrowAltCircleRight
-                size={35}
-                className={`${
-                  page === totalPages ? "text-gray-400" : "text-gray-800"
-                } hover:cursor-pointer`}
-              />
-            </button>
-          </div>
+          {tasks.length >= 3 && (
+            <div className="flex justify-end gap-3 items-center mt-1">
+              <button
+                disabled={page == 1}
+                onClick={() => setPage((prev) => prev - 1)}
+              >
+                <FaArrowAltCircleLeft
+                  size={35}
+                  className={`${
+                    page == 1 ? "text-gray-400" : "text-gray-800"
+                  } hover:cursor-pointer`}
+                />
+              </button>
+              Page : {page}
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                <FaArrowAltCircleRight
+                  size={35}
+                  className={`${
+                    page === totalPages ? "text-gray-400" : "text-gray-800"
+                  } hover:cursor-pointer`}
+                />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
