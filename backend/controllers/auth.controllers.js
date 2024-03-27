@@ -60,14 +60,12 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Find the user by email
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
       return res.status(404).json({ error: "User not found!" });
     }
 
-    // Compare passwords
     bcrypt.compare(password, existingUser.password, (err, result) => {
       if (err) {
         return res
@@ -87,6 +85,41 @@ export const login = async (req, res) => {
         token,
       };
       return res.status(200).json(dataToSend);
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Internal server error", message: error.message });
+  }
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { fullname, email, password } = req.body;
+
+    if (!fullname) {
+      return res.status(400).json({ error: "Fullname is required!" });
+    }
+
+    const existingUser = await User.findOne({ email });
+
+    if (!existingUser) {
+      return res.status(404).json({ error: "User not found!" });
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10); // Example: 10 rounds of hashing
+      existingUser.password = hashedPassword;
+    }
+
+    existingUser.email = email;
+    existingUser.fullname = fullname;
+    await existingUser.save();
+
+    return res.status(200).json({
+      msg: "User Info Updated Successfully!",
+      fullname: existingUser.fullname,
+      email: existingUser.email,
     });
   } catch (error) {
     res
