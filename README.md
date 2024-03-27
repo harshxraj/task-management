@@ -6,6 +6,8 @@ This is a web-based task management application built using the MERN stack (Mong
 - **Filtering by Status**: Users can filter tasks by status (e.g., Pending, In Progress, Completed).
 - **Filtering by Priority**: Users can filter tasks by priority (e.g., Low, Medium, High).
 - **Pagination**: Tasks are paginated to improve performance and user experience.
+- **User Profile**: Users have a profile page where they can view their details and update their information.
+- **Update Profile**: Users can update their profile information (e.g., name, password) from the profile page
 - **Validation**: Input data such as task title and description are validated to ensure data integrity.
 - **User Authentication**: Users can sign up and log in to access the application. Only authenticated users can perform task management operations.
 - **Redux-toolkit Integration**: User data fetched from the database is stored in Redux for efficient state management across the application.
